@@ -46,7 +46,6 @@ const AdminSettings = () => {
           </div>
         </div>
         <p className="muted" style={{ fontSize: '0.86rem', margin: '0 0 6px' }}>Free shipping waives the state&rsquo;s shipping charge only. The COD fee still applies.</p>
-        <p className="muted" style={{ marginTop: 14, fontSize: '0.88rem' }}>Razorpay runs in <strong>dummy mode</strong> while <code>RAZORPAY_MOCK=true</code> in <code>backend/.env</code>. Add real keys there and set it to <code>false</code> to accept real payments.</p>
       </div>
       <div className="admin-section">
         <div className="admin-section-title">Shipping &amp; COD by state <button className="btn btn-sm" type="submit">Save rates</button></div>

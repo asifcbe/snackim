@@ -108,30 +108,6 @@
 .summary-total { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; padding-top: 8px; border-top: 2px solid var(--ink); margin-top: 6px; }
 @media (max-width: 900px) { .checkout-grid { grid-template-columns: 1fr; } .summary { position: static; } }
 
-/* ============ Mock Razorpay ============ */
-.rzp-backdrop { position: fixed; inset: 0; z-index: 1200; background: rgba(10, 20, 40, 0.6); display: grid; place-items: center; padding: 16px; }
-.rzp { width: min(400px, 100%); background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.35); font-family: var(--font-body); }
-.rzp-head { position: relative; display: flex; gap: 12px; align-items: center; padding: 18px; background: linear-gradient(135deg, var(--plum), var(--pink)); color: #fff; }
-.rzp-logo { width: 44px; height: 44px; border-radius: 10px; background: var(--yellow); color: var(--ink-blue); font-family: var(--font-wordmark); font-weight: 900; font-size: 1.4rem; display: grid; place-items: center; }
-.rzp-head strong { display: block; }
-.rzp-head span { font-size: 0.78rem; opacity: 0.85; }
-.rzp-amount { margin-left: auto; font-size: 1.3rem; font-weight: 700; padding-right: 26px; }
-.rzp-close { position: absolute; top: 8px; right: 8px; border: 0; background: rgba(255,255,255,0.15); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; }
-.rzp-test { background: #FFF6D6; color: #7A5A00; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-align: center; padding: 6px; }
-.rzp-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-.rzp-contact { font-size: 0.82rem; color: var(--ink-3); }
-.rzp-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.rzp-tabs button { display: flex; gap: 6px; align-items: center; justify-content: center; padding: 10px 6px; border-radius: 10px; border: 1.5px solid var(--line); background: #fff; font-size: 0.85rem; font-weight: 600; }
-.rzp-tabs button.active { border-color: #2B6DE8; color: #2B6DE8; background: #EEF4FF; }
-.rzp-card { display: flex; flex-direction: column; gap: 10px; }
-.rzp-body .form-control { border-radius: 10px; padding: 11px 14px; }
-.rzp-pay { border: 0; border-radius: 10px; background: #2B6DE8; color: #fff; padding: 14px; font-weight: 700; font-size: 1rem; }
-.rzp-pay:hover { background: #1F57C4; }
-.rzp-fail { border: 0; background: none; color: var(--ink-3); font-size: 0.8rem; text-decoration: underline; }
-.rzp-secure { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.75rem; color: var(--ink-3); }
-.rzp-processing { padding: 40px 20px; text-align: center; }
-.rzp-tick { width: 64px; height: 64px; border-radius: 50%; background: var(--success); color: #fff; font-size: 2rem; display: grid; place-items: center; margin: 0 auto 14px; }
-
 /* ============ Orders ============ */
 .order-card { background: #fff; border: 2px solid var(--ink); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 20px; }
 .order-card-head { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }

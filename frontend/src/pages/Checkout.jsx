@@ -7,7 +7,6 @@ import { useAuth } from '../context/AuthContext';
 import { useSettings } from '../context/SettingsContext';
 import api, { rupee, errMsg } from '../utils/api';
 import { quoteShipping, UNION_TERRITORIES } from '../utils/shipping';
-import MockRazorpay from '../components/MockRazorpay';
 import ProductVisual from '../components/ProductVisual';
 import { shipLine } from '../utils/fresh';
 
@@ -35,9 +34,8 @@ const Checkout = () => {
   const [checkoutCoupons, setCheckoutCoupons] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState('razorpay');
   const [submitting, setSubmitting] = useState(false);
-  const [mockOrder, setMockOrder] = useState(null);
 
-  useEffect(() => { if (items.length === 0 && !mockOrder) navigate('/shop'); }, [items, navigate, mockOrder]);
+  useEffect(() => { if (items.length === 0) navigate('/shop'); }, [items, navigate]);
   useEffect(() => { api.get('/api/coupons/checkout').then(({ data }) => setCheckoutCoupons(data)).catch(() => {}); }, []);
 
   const discount = appliedCoupon?.discount || 0;
@@ -92,15 +90,16 @@ const Checkout = () => {
 
   const handleRazorpay = async () => {
     const { data } = await api.post('/api/payment/create-order', { customerInfo: form, items: itemsPayload(), couponCode: appliedCoupon?.code });
-    if (data.mock) { setMockOrder(data); return; }
     if (!(await loadRazorpayScript())) throw new Error('Could not load Razorpay');
     const rzp = new window.Razorpay({
       key: data.keyId, amount: data.amount, currency: data.currency, order_id: data.razorpayOrderId,
       name: settings.storeName || 'Snackim', description: 'Snackim order',
       handler: verify,
       prefill: { name: form.name, email: form.email, contact: form.phone },
-      theme: { color: '#D81159' }
+      theme: { color: '#D81159' },
+      modal: { ondismiss: () => toast.info('Payment cancelled') }
     });
+    rzp.on('payment.failed', (resp) => toast.error(resp.error?.description || 'Payment failed'));
     rzp.open();
   };
 
@@ -219,16 +218,6 @@ const Checkout = () => {
         </motion.aside>
       </div>
 
-      {mockOrder && (
-        <MockRazorpay
-          order={mockOrder}
-          storeName={settings.storeName || 'Snackim'}
-          prefill={{ email: form.email, contact: form.phone }}
-          onSuccess={async (resp) => { await verify(resp); setMockOrder(null); }}
-          onFailure={(msg) => toast.error(msg)}
-          onDismiss={() => { setMockOrder(null); toast.info('Payment cancelled'); }}
-        />
-      )}
     </div>
   );
 };
