@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import api, { rupee, errMsg } from '../../utils/api';
+import { FiEye, FiPrinter, FiX } from 'react-icons/fi';
 import OrderCard from '../../components/OrderCard';
+import { useSettings } from '../../context/SettingsContext';
+import { printOrderSlip } from '../../utils/printSlip';
 
 const STATUSES = ['placed', 'confirmed', 'frying', 'packed', 'shipped', 'delivered', 'cancelled'];
 
@@ -11,6 +14,9 @@ const AdminOrders = () => {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(null);
+  const settings = useSettings();
+
+  const print = (o) => { if (!printOrderSlip(o, settings)) toast.error('Allow pop-ups to print the order slip'); };
 
   const load = () => api.get('/api/orders', { params: { status: status || undefined, search: search || undefined, page } }).then(({ data: d }) => setData(d));
   useEffect(() => { load(); }, [status, page]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,7 +39,7 @@ const AdminOrders = () => {
       </div>
       <div className="admin-section table-wrap">
         <table className="table">
-          <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead>
+          <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
           <tbody>
             {data.orders.map((o) => (
               <tr key={o._id}>
@@ -52,6 +58,10 @@ const AdminOrders = () => {
                   </select>
                 </td>
                 <td className="muted" style={{ fontSize: '0.82rem' }}>{new Date(o.createdAt).toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short' })}</td>
+                <td style={{ whiteSpace: 'nowrap' }}>
+                  <button className="icon-btn" onClick={() => setOpen(o)} aria-label="Preview order" title="Preview order"><FiEye /></button>{' '}
+                  <button className="icon-btn" onClick={() => print(o)} aria-label="Print order slip" title="Print order slip"><FiPrinter /></button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -66,6 +76,10 @@ const AdminOrders = () => {
       {open && (
         <div className="modal-backdrop" onClick={() => setOpen(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginBottom: 12 }}>
+              <button className="btn btn-sm" onClick={() => print(open)}><FiPrinter /> Print slip</button>
+              <button className="icon-btn" onClick={() => setOpen(null)} aria-label="Close"><FiX /></button>
+            </div>
             <OrderCard order={open} />
             <div className="card-soft">
               <strong>Ship to</strong>
