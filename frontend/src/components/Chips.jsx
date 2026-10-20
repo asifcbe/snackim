@@ -1,32 +1,13 @@
-import React, { useId } from 'react';
+import React from 'react';
+import bananaChipSrc from '../assets/banana-chip.png';
 
 // Illustrated chips used for decoration and inside the snack-pack illustration.
 
-export const BananaChip = ({ size = 80, color = '#F7D774', style, className }) => {
-  const id = useId().replace(/:/g, '');
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" style={style} className={className} aria-hidden>
-      <defs>
-        <radialGradient id={`bg${id}`} cx="40%" cy="35%" r="70%">
-          <stop offset="0%" stopColor="#FFF3C4" />
-          <stop offset="55%" stopColor={color} />
-          <stop offset="100%" stopColor="#D9A23A" />
-        </radialGradient>
-      </defs>
-      <path d="M50 4c22 0 44 15 45 42 1 27-19 49-46 50C22 97 4 76 5 50 6 24 27 4 50 4z" fill={`url(#bg${id})`} stroke="#C48A2C" strokeWidth="3" />
-      <circle cx="50" cy="50" r="17" fill="none" stroke="#C99A3E" strokeWidth="2" opacity="0.7" />
-      {Array.from({ length: 9 }).map((_, i) => {
-        const a = (i / 9) * Math.PI * 2;
-        return <circle key={i} cx={50 + Math.cos(a) * 11} cy={50 + Math.sin(a) * 11} r="1.9" fill="#9C6B22" opacity="0.75" />;
-      })}
-      <circle cx="50" cy="50" r="3" fill="#9C6B22" opacity="0.6" />
-      <circle cx="30" cy="70" r="1.6" fill="#FFF" opacity="0.8" />
-      <circle cx="68" cy="28" r="1.4" fill="#FFF" opacity="0.8" />
-      <circle cx="72" cy="66" r="1.2" fill="#A3741F" opacity="0.5" />
-      <ellipse cx="34" cy="28" rx="10" ry="5" fill="#fff" opacity="0.35" transform="rotate(-30 34 28)" />
-    </svg>
-  );
-};
+export { bananaChipSrc };
+
+export const BananaChip = ({ size = 80, style, className = '' }) => (
+  <img src={bananaChipSrc} width={size} height={size} alt="" aria-hidden draggable={false} className={`banana-chip ${className}`} style={style} />
+);
 
 export const PotatoChip = ({ size = 80, color = '#F5DC85', style, className }) => (
   <svg width={size} height={size} viewBox="0 0 100 100" style={style} className={className} aria-hidden>

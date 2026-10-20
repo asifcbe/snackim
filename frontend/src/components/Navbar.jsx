@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FiShoppingBag, FiUser, FiMenu, FiX, FiLogOut, FiPackage, FiGrid } from 'react-icons/fi';
@@ -80,7 +81,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <AnimatePresence>
+      {/* Portaled to body: .nav's backdrop-filter would otherwise trap this fixed overlay inside the navbar box. */}
+      {createPortal(<AnimatePresence>
         {menu && (
           <motion.div className="mobile-menu" initial={{ clipPath: 'circle(0% at 30px 30px)' }} animate={{ clipPath: 'circle(150% at 30px 30px)' }} exit={{ clipPath: 'circle(0% at 30px 30px)' }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             <div className="mobile-menu-top">
@@ -97,7 +99,7 @@ const Navbar = () => {
             <p className="mobile-menu-foot">Good snacks. Brighter days.</p>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
     </header>
   );
 };

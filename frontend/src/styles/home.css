@@ -52,7 +52,7 @@
 .bhero-bowl { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 300px; z-index: 3; display: flex; flex-direction: column; align-items: center; }
 .bhero-steam { color: rgba(255,255,255,0.95); margin-bottom: -14px; }
 .bowl-chips { display: flex; justify-content: center; height: 60px; position: relative; z-index: 1; }
-.bowl-chips svg { position: absolute; }
+.bowl-chips svg, .bowl-chips img { position: absolute; }
 .bowl {
   width: 260px; height: 92px; margin-top: -8px;
   background: var(--teal); border: 2.5px solid var(--ink); border-radius: 0 0 140px 140px;
@@ -86,7 +86,7 @@
 .spotlight-ring svg { width: 100%; height: 100%; overflow: visible; }
 .spotlight-ring text { font-family: var(--font-caps); font-weight: 700; font-size: 19px; letter-spacing: 6px; fill: var(--yellow); }
 .spotlight-chip { filter: drop-shadow(0 30px 30px rgba(0,0,0,0.3)); width: 60%; }
-.spotlight-chip svg { width: 100%; height: auto; }
+.spotlight-chip svg, .spotlight-chip img { width: 100%; height: auto; }
 .spotlight-steam { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.9); }
 .spotlight-mini { position: absolute; }
 .spotlight-mini.m1 { right: 2%; bottom: 10%; }

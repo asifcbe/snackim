@@ -1,5 +1,5 @@
 import React, { useId } from 'react';
-import { BananaChip, PotatoChip } from './Chips';
+import { bananaChipSrc, PotatoChip } from './Chips';
 
 // Illustrated snack pouch in the style of the real Snackim packs — used whenever a product
 // has no uploaded photo, so the catalogue always looks on-brand.
@@ -30,7 +30,7 @@ const SnackPack = ({ name, color = 'yellow', chipColor, category, className = ''
   const t = PACK_THEMES[color] || PACK_THEMES.yellow;
   const id = useId().replace(/:/g, '');
   const lines = splitLines(name);
-  const Chip = category === 'banana-chips' || category === 'combo-boxes' ? BananaChip : PotatoChip;
+  const isBanana = category === 'banana-chips' || category === 'combo-boxes';
   const crimp = (y) => Array.from({ length: 20 }).map((_, i) => `${10 + i * 9},${y} ${14.5 + i * 9},${y + 5}`).join(' ');
 
   return (
@@ -54,7 +54,9 @@ const SnackPack = ({ name, color = 'yellow', chipColor, category, className = ''
         <polyline points={crimp(14)} fill="none" stroke="#000" strokeOpacity="0.12" strokeWidth="2" />
         <polyline points={crimp(236)} fill="none" stroke="#000" strokeOpacity="0.12" strokeWidth="2" />
         <g transform="translate(118 132) rotate(-12)">
-          <Chip size={96} color={chipColor} />
+          {isBanana
+            ? <image href={bananaChipSrc} width="96" height="96" />
+            : <PotatoChip size={96} color={chipColor} />}
         </g>
       </g>
       <text x="26" y="64" fontFamily="Rubik, sans-serif" fontWeight="900" fontSize="25" letterSpacing="-0.5" fill={t.a}>SNA</text>
